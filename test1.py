@@ -9,6 +9,7 @@ def test(path,ex,calc,para):
 	#para操作函数参数
         pathlist=[path]
         index=0
+        index1=0
         while (index<len(pathlist)):
                 #print(pathlist[index])
                 if os.path.isdir(pathlist[index]):
@@ -19,7 +20,9 @@ def test(path,ex,calc,para):
                 else:
                         if ex=="*" or ex==string.split(pathlist[index],".")[-1]:
                                 calc(pathlist[index],para,index)
+                                index1+=1
                 index+=1
+        print("处理该类型文件:"+str(index1)+"个")
 
 def test2(path,para,index):
         #输出文件名
@@ -45,9 +48,12 @@ def test4(path,para,index):
 def test5(path,para,index):
         #重命名文件(非常危险,慎用)
         new_name="\\".join(string.split(path,"\\")[:-1])+"\\"+para[0]+str(index)+"."+string.split(path,".")[-1]
+        #具体重命名规则自己自定义，这里只是个例子，例如，可以将原文件名中的（123...）去掉
         print(path+">>"+new_name)
-        #os.rename(path,new_name)
+        os.rename(path,new_name)
 
 
-#test(os.getcwd(),"lua",test3,[])
-test("E:\\haha-master\\1","*",test4,[r'.',"a"])
+test(os.getcwd(),"txt",test2,[])
+#test(os.getcwd(),"txt",test3,[])
+#test(os.getcwd()+"\\1","*",test4,[r'.',"a"])
+#test(os.getcwd()+"\\1","*",test5,["a"])
