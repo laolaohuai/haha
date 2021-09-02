@@ -1,7 +1,6 @@
 #! /usr/bin/python
-# coding=utf-8
 # -*- coding:utf8 -*-
-import os,re,string
+import os,re
 def test(path,ex,calc,para):
 	#path根目录
 	#ex扩展名过滤,填*则不过滤
@@ -18,24 +17,24 @@ def test(path,ex,calc,para):
                                 #print(pathlist[index]+"\\"+i)
                                 pathlist.append(pathlist[index]+"\\"+i)
                 else:
-                        if ex=="*" or ex==string.split(pathlist[index],".")[-1]:
+                        if ex=="*" or ex==str.split(pathlist[index],".")[-1]:
                                 calc(pathlist[index],para,index)
                                 index1+=1
                 index+=1
         print("处理该类型文件:"+str(index1)+"个")
 
-def test2(path,para,index):
+def show_filename(path,para,index):
         #输出文件名
 	print(path)
 
-def test3(path,para,index):
+def show_file_content(path,para,index):
         #输出文件内容
         f = open(path, 'r')
         txt = f.read()
         f.close()
         print(txt)
 
-def test4(path,para,index):
+def replace_file_content(path,para,index):
         #用正则表达式对文件中的内容进行替换
         f = open(path, 'r')
         txt = f.read()
@@ -45,15 +44,15 @@ def test4(path,para,index):
         f.write(txt)
         f.close()
 
-def test5(path,para,index):
-        #重命名文件(非常危险,慎用)
+def rename_file(path,para,index):
+        #重命名文件(危险慎用，不仅可以重命名，还可以改变文件所在位置)
         new_name="\\".join(string.split(path,"\\")[:-1])+"\\"+para[0]+str(index)+"."+string.split(path,".")[-1]
         #具体重命名规则自己自定义，这里只是个例子，例如，可以将原文件名中的（123...）去掉
         print(path+">>"+new_name)
         os.rename(path,new_name)
 
-
-test(os.getcwd(),"txt",test2,[])
-#test(os.getcwd(),"txt",test3,[])
-#test(os.getcwd()+"\\1","*",test4,[r'.',"a"])
-#test(os.getcwd()+"\\1","*",test5,["a"])
+if __name__ == '__main__':
+        #test(os.getcwd(),"txt",showfilename,[])
+        test(os.getcwd(),"txt",show_file_content,[])
+        #test(os.getcwd()+"\\1","*",replace_file_content,[r'.',"a"])
+        #test(os.getcwd()+"\\1","*",rename_file,["a"])
