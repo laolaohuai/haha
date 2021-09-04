@@ -1,6 +1,5 @@
 haha
 ====
 
-this is a test
+主要用于 python 学习
 
-python 学习
